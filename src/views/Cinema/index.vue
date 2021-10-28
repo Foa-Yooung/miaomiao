@@ -3,20 +3,20 @@
         <Header title="喵喵影院"/>
         <div id="content">
 			<div class="cinema_menu">
-				<router-link tag="div" to="/movie/allCity" class="city_switch">
+				<router-link tag="div" to="/cinema/allCity" class="city_switch">
 					全城 <i class="iconfont icon-lower-triangle"></i>
 				</router-link>
 
-				<router-link tag="div" to="/movie/log" class="brand_swtich">
+				<router-link tag="div" to="/cinema/log" class="brand_swtich">
 					品牌 <i class="iconfont icon-lower-triangle"></i>
 				</router-link>
 
-				<router-link tag="div" to="/movie/feature" class="feature_switch">
+				<router-link tag="div" to="/cinema/feature" class="feature_switch">
 					特色 <i class="iconfont icon-lower-triangle"></i>
 				</router-link>
 			</div>
             <keep-alive>
-                <router-view />
+                <router-view/>
             </keep-alive>
             </div>
         <TabBar />   

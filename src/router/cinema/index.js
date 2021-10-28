@@ -2,10 +2,9 @@ export default{
     path:"/cinema",
     component:() => import ('@/views/Cinema') ,
     children: [
-        {
+    {
         path : 'allCity',
         component:() => import ('@/components/AllCity') ,
-
     },
     {
         path : 'log',
@@ -17,10 +16,9 @@ export default{
         component:() => import ('@/components/Feature') ,
 
     },
-   
     {
         path:"/cinema",
         redirect:"/cinema/allCity"
     }
-    ]    
+    ],   
 }

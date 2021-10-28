@@ -3,7 +3,7 @@
 				<ul>
 					<li>
 						<div>
-							<span>大地影院(澳东世纪店)</span>
+							<span>全城(澳东世纪店)</span>
 							<span class="q"><span class="price">22.9</span> 元起</span>
 						</div>
 						<div class="address">
@@ -87,8 +87,7 @@
 					</li>
 				</ul>
 			</div>
-		
-								
+									
 </template>
 
 <script>

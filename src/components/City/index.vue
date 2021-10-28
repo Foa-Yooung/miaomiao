@@ -85,10 +85,19 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default ({
-    name:"City"
-})
+    name:"City",
+	mounted(){
+		this.axios.get('https://m.maoyan.com/ajax/movieOnInfoList?token=&optimus_uuid=991B5E2037A211EC902C2D7D1411D53095D1BF7A4ED14D0182F550B273749588&optimus_risk_level=71&optimus_code=10').then(res=>{
+			console.log(res);
+		})
+	}
+	
+
+	
+});
 </script>
 
 <style scoped>
