@@ -10,7 +10,17 @@ Vue.prototype.axios = axios;
 // 过滤器
 Vue.filter("setWH",(url,arg)=>{
   return url.replace("/w\.h/",arg);
-})
+});
+// 滚动
+import Scroller from "@/components/Scroller"
+Vue.component("Scroller",Scroller);
+
+// loading
+import Loading from "@/components/Loading"
+Vue.component("Loading",Loading);
+
+
+
 
 Vue.config.productionTip = false
 

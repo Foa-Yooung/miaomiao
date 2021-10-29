@@ -1,6 +1,9 @@
 <template>
-   <div class="movie_body">
-				<ul>
+   <div class="movie_body" >
+	   <Loading v-if="isLoading"/>
+	  <Scroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd ="handleToTouchEnd"> 
+		  <div>
+		   		<ul>
 					<!-- <li>
 						<div class="pic_show"><img src="/images/movie_1.jpg"></div>
 						<div class="info_list">
@@ -13,9 +16,9 @@
 							购票
 						</div>
 					</li> -->
-
+					<li class="pullDown">{{pullDownMsg}}</li>
 					<li v-for="item in movieList" :key="item.id">
-						<div class="pic_show">
+						<div class="pic_show" @tag="handleToDetail">
 							<img :src="item.img | setWH('128.180')  ">
 							</div>
 						<div class="info_list">
@@ -27,30 +30,108 @@
 						<div class="btn_mall">
 							购票
 						</div>
-					</li>
-									
+					</li>					
 				</ul>
-			</div>
-		 
+				</div>
+			</Scroller>	
+		
+	</div>		 
 </template>
 
 <script>
+
+// import BScroll from 'better-scroll';
 
 export default ({
     name:'NowPlaying',
 	data(){
 		return{
-			movieList : []
+			movieList : [],
+			pullDownMsg:'',
+			isLoading:true,
+			// prevCityId:-1
 		}
 	},
-	mounted(){
-		this.axios.get('/ajax/movieOnInfoList').then((res)=>{
-			this.movieList = res.data.movieList;		
-		})
+	// activated(){}重新进入这个组件再次执行，切换城市时使用，其他方面进入不用调用这个函数
 
+	mounted(){
+
+		// var cityId = this.$store.state.city.id;
+		// this.isLoading = true;
+		// if(this.prevCityId===cityId){
+		// 	return;
+		// }
+
+		this.axios.get('/ajax/movieOnInfoList').then((res)=>{
+			this.movieList = res.data.movieList;
+			this.isLoading = false;
+			// this.prevCityId = cityId;
+		})
+	},
 		
-	}
-})
+	
+
+	methods:{
+		handleToDetail(){
+			console.log(handleToDetail);
+		},
+
+		handleToScroll(pos){
+			if(pos.y > 30){
+			 	this.pullDownMsg = '正在刷新';
+			}
+		},
+
+		handleToTouchEnd(pos){
+			if(pos.y > 30){
+				this.axios.get('/ajax/movieOnInfoList').then((res)=>{
+				this.pullDownMsg = '刷新成功';
+				setTimeout(()=>{
+					this.movieList = res.data.movieList;
+					this.pullDownMsg=''
+				},500)
+				})
+				}
+				},
+
+
+
+	}	
+	
+})		// this.$nextTick(()=>{
+			// 	var scroll = new BScroll(this.$refs.movie_body,{
+			// 		tap:true,
+			// 		probeType:1
+			// 		});	
+			
+			// //pos表示位置
+			// scroll.on('scroll',(pos)=>{
+			// 	// console.log("scroll");
+			// 	if(pos.y > 30){
+			// 		this.pullDownMsg = '正在刷新';
+			// 	}
+				
+			// });
+
+			// scroll.on('touchEnd',(pos)=>{
+			// 	// console.log("touchend");
+			// 	if(pos.y > 30){
+			// 		this.axios.get('/ajax/movieOnInfoList').then((res)=>{
+			// 			this.pullDownMsg = '刷新成功';
+			// 			setTimeout(()=>{
+			// 				this.movieList = res.data.movieList;
+			// 				this.pullDownMsg=''
+			// 			},500)
+							
+					
+						
+			// 		});
+					
+			// 	}
+			// });
+			// });
+
+	
 </script>
 
 <style scoped>
@@ -67,4 +148,5 @@ export default ({
 .movie_body .info_list img{ width:50px; position: absolute; right:10px; top: 5px;}
 .movie_body .btn_mall , .movie_body .btn_pre{ width:47px; height:27px; line-height: 28px; text-align: center; background-color: #f03d37; color: #fff; border-radius: 4px; font-size: 12px; cursor: pointer;}
 .movie_body .btn_pre{ background-color: #3c9fe6;}
+.movie_body .pullDown{margin: 0;padding: 0;border:none ;}
 </style>
